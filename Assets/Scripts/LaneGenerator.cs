@@ -55,6 +55,7 @@ public class LaneGenerator : MonoBehaviour
             print(length);
 
             GameObject laneObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            DontDestroyOnLoad(laneObject);
             //give a RGB color to the lane
             laneObject.GetComponent<Renderer>().material.color = new Color(0.434f, 0.877f, 0.562f);
 
