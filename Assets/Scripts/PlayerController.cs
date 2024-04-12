@@ -49,16 +49,9 @@ public class PlayerController : MonoBehaviour
         if (count > 10 && count < 35)
         {
             // slowly change the rotation of the camera
-            //virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_ScreenY = Mathf.Lerp(virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_ScreenY, -1.0f, Time.deltaTime);
+            //virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_ScreenY = Mathf.Lerp(virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_ScreenY, -0.5f, Time.deltaTime);
             //camera slowly zooms out
-            virtualCamera.m_Lens.FieldOfView = Mathf.Lerp(virtualCamera.m_Lens.FieldOfView, 60.0f, Time.deltaTime);
-        }
-        if (count > 55 && count < 65)
-        {
-
-            //virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_ScreenY = Mathf.Lerp(virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_ScreenY, -1.0f, Time.deltaTime);
-            //virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_ScreenZ = Mathf.Lerp(virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_ScreenZ, 1.0f, Time.deltaTime);
-
+            //virtualCamera.m_Lens.FieldOfView = Mathf.Lerp(virtualCamera.m_Lens.FieldOfView, 60.0f, Time.deltaTime);
         }
 
         // get space input

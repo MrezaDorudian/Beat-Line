@@ -32,7 +32,7 @@ public class LaneGenerator : MonoBehaviour
             level = 2;
         }
         generate();
-        Destroy(startingArea, 10);
+        Destroy(startingArea, 30);
     }
 
     // Update is called once per frame
@@ -79,7 +79,8 @@ public class LaneGenerator : MonoBehaviour
             18.0f, 1.82f, 1.88f, 2.12f, 1.29f, 1.88f, 1.76f, 1.71f, 1.82f, 21.24f,
             3.82f, 3.71f, 19.06f, 2.12f, 1.53f, 7.53f, 1.65f, 2.18f, 8.88f, 2.24f,
             2.41f, 5.35f, 1.24f, 0.88f, 1.59f, 7.53f, 1.53f, 1.18f, 1.12f, 5.71f,
-            2.0f, 1.88f, 1.65f, 400.35f
+            2.0f, 1.88f, 1.65f, 94.0f, 1.59f, 0.94f, 1.35f, 1.53f, 1.88f, 2.06f,
+            1.47f, 2.06f, 7.65f, 1.94f, 1.94f, 200.35f
         };
 
         float[] currentLanes;
@@ -162,7 +163,7 @@ public class LaneGenerator : MonoBehaviour
                 virtualCamera.Follow = null;
                 StartCoroutine(player.GetComponent<PlayerController>().reloadScene());
 
-            } else if (laneObjects.Count < 3 && level == 2)
+            } else if (laneObjects.Count < 5 && level == 2)
             {
                 virtualCamera.m_Lens.OrthographicSize += 0.00004f;
                 // get current camera background color
@@ -170,7 +171,7 @@ public class LaneGenerator : MonoBehaviour
                 // make it lighter gradually
                 Camera.main.backgroundColor = Color.Lerp(currentColor, Color.white, 0.00004f);
                 // stop following the player after 10 seconds
-                if (Time.time > 20)
+                if (Time.time > 15)
                 {
                     virtualCamera.Follow = null;
                     StartCoroutine(player.GetComponent<PlayerController>().reloadScene());
