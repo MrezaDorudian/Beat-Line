@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Cinemachine;
+using UnityEngine.SceneManagement;
 
 
 public class PlayerController : MonoBehaviour
@@ -13,6 +14,9 @@ public class PlayerController : MonoBehaviour
     public Text runeCountText;
     public CinemachineVirtualCamera virtualCamera;
     public Canvas blackScreenCanvas;
+
+    public bool gameStarted = false;
+    public AudioSource audioSource;
 
     private int runeCount = 0;
     
@@ -30,26 +34,39 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // start moving
-        checkFall();
-        move();
-        transform.Translate(currentDirection * speed * Time.deltaTime);
-        runeCountText.text = "Runes: " + runeCount + " / 3";
+        if (gameStarted)
+        {
+            checkFall();
+            move();
+            transform.Translate(currentDirection * speed * Time.deltaTime);
+            runeCountText.text = "Runes: " + runeCount + " / 3";
+        }
     }
 
     void move()
     {
+
+        if (count > 10 && count < 35)
+        {
+            // slowly change the rotation of the camera
+            //virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_ScreenY = Mathf.Lerp(virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_ScreenY, -1.0f, Time.deltaTime);
+            //camera slowly zooms out
+            virtualCamera.m_Lens.FieldOfView = Mathf.Lerp(virtualCamera.m_Lens.FieldOfView, 60.0f, Time.deltaTime);
+        }
+        if (count > 55 && count < 65)
+        {
+
+            //virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_ScreenY = Mathf.Lerp(virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_ScreenY, -1.0f, Time.deltaTime);
+            //virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_ScreenZ = Mathf.Lerp(virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_ScreenZ, 1.0f, Time.deltaTime);
+
+        }
+
         // get space input
         if (Input.GetKeyDown(KeyCode.Space))
         {
             count++;
             print(count);
-            if (count == 10)
-            {
-                // set cinemachine camera position to -3, -3, -3
-                //virtualCamera.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset = new Vector3(-3, -3, -3);
-                // set cinemachine camera rotation to 0, 0, 0
-                //virtualCamera.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset = new Vector3(15, 20, 0);
-            }
+
             // change direction
             if (isRight)
             {
@@ -74,7 +91,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    IEnumerator reloadScene()
+    public IEnumerator reloadScene()
     {
         // wait for 5 seconds
         yield return new WaitForSeconds(2);
@@ -84,6 +101,8 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(3);
 
         Application.LoadLevel(Application.loadedLevel);
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("FirstScene"));
+
 
 
     }
@@ -97,8 +116,6 @@ public class PlayerController : MonoBehaviour
             // reload the scene after 5 seconds
 
             StartCoroutine("reloadScene");
-
-
         }
     }
 }

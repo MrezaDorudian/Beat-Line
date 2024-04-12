@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnvironmentController : MonoBehaviour
 {
-
+    public PlayerController player;
     public GameObject[] environmentObjects;
     // float arraylist to store the random values for the environment objects
     private float[] randomValuesX = new float[3];
@@ -30,10 +30,12 @@ public class EnvironmentController : MonoBehaviour
     void Update()
     {
         // make the environment objects fly to the air slowly and in towards different directions
-
-        for (int i = 0; i < environmentObjects.Length; i++)
+        if (player.gameStarted)
         {
-            environmentObjects[i].transform.position = new Vector3(environmentObjects[i].transform.position.x + randomValuesX[i], environmentObjects[i].transform.position.y + randomValuesY[i], environmentObjects[i].transform.position.z + randomValuesZ[i]);
+            for (int i = 0; i < environmentObjects.Length; i++)
+            {
+                environmentObjects[i].transform.position = new Vector3(environmentObjects[i].transform.position.x + randomValuesX[i], environmentObjects[i].transform.position.y + randomValuesY[i], environmentObjects[i].transform.position.z + randomValuesZ[i]);
+            }
         }
     }
 }
